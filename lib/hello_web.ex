@@ -51,6 +51,13 @@ defmodule HelloWeb do
     end
   end
 
+  def plug do
+    quote do
+      import Plug.Conn
+      import Phoenix.Controller
+    end
+  end
+
   def channel do
     quote do
       use Phoenix.Channel

@@ -1,0 +1,1 @@
+<p>Welcome <%= Hello.Accounts.User.full_name(@user) %></p>
