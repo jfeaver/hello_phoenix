@@ -21,4 +21,9 @@ defmodule Hello.CMS.Author do
     |> validate_required([:bio, :role, :genre])
     |> unique_constraint(:user_id)
   end
+
+  def name(%Author{} = author) do
+    author.user
+    |> Hello.Accounts.User.full_name
+  end
 end
