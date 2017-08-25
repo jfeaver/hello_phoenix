@@ -29,7 +29,11 @@ defmodule HelloWeb.CMS.PageController do
   end
 
   def show(conn, %{"id" => id}) do
-    page = CMS.get_page!(id)
+    page =
+      id
+      |> CMS.get_page!
+      |> CMS.inc_page_views
+
     render(conn, "show.html", page: page)
   end
 
@@ -39,7 +43,7 @@ defmodule HelloWeb.CMS.PageController do
     render(conn, "edit.html", page: page, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "page" => page_params}) do
+  def update(conn, %{"page" => page_params}) do
     case CMS.update_page(conn.assigns.page, page_params) do
       {:ok, page} ->
         conn
@@ -50,7 +54,7 @@ defmodule HelloWeb.CMS.PageController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
+  def delete(conn, _params) do
     {:ok, _page} = CMS.delete_page(conn.assigns.page)
 
     conn
